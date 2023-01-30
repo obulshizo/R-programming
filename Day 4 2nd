@@ -1,0 +1,127 @@
+# Create a random sample of 5 elements from the letters
+
+sample_letters <- sample(LETTERS, 5)
+
+# Create a factor from the sample
+
+sample_factor <- factor(sample_letters)
+
+# Extract the first five levels of the factor
+
+first_five_levels <- levels(sample_factor)[1:5]
+
+# Print the first five levels
+
+print(first_five_levels)
+
+#2
+
+vec<-c(1,2,3,4,5,6,7,8,9)
+
+a<-max(vec)
+
+b<-min(vec)
+
+range<-a-b
+
+range
+
+#3
+
+find_vowels <- function(str) {
+
+  vowels <- c("a", "e", "i", "o", "u", "A", "E", "I", "O", "U")
+
+  vowel_count <- length(grep(paste(vowels, collapse = "|"), str))
+
+  return(vowel_count)
+
+}
+
+#2
+
+# Load the ChickWeight dataset
+
+data<-ChickWeight
+
+data
+
+# Explore the summary of the dataset
+
+str(data)
+
+summary(data)
+
+#2
+
+tail(data,6)
+
+#3
+
+# Load the dplyr library
+
+library(dplyr)
+
+# Order the data frame in ascending order by "weight" feature and group by "diet" feature
+
+data %>%
+
+  group_by(Diet) %>%
+
+  arrange(weight)
+
+#4
+
+# Load the data.table library
+
+library(data.table)
+
+# Melt the data frame based on "Chick", "Time", and "Diet" features as ID variables
+
+melt(setDT(data), id.vars = c("Chick", "Time", "Diet"))
+
+#5
+
+# Load the data.table library
+
+library(data.table)
+
+# Cast the data frame to display the mean value of "weight" grouped by "Diet"
+
+dcast(setDT(data), Diet ~ ., fun.aggregate = mean)
+
+#3
+
+summary(data)
+
+boxplot(weight ~ Diet, data = data)
+
+hist(data$weight[data$Diet==1])
+
+# Load the car library
+
+library(car)
+
+scatterplot(weight ~ Time | Diet, data = data)
+
+# Load the ggplot2 library
+
+library(ggplot2)
+
+ggplot(data, aes(x = Time, y = weight, color = as.factor(Diet))) + geom_point()
+
+#4
+
+# Create the model
+
+model <- lm(weight ~ Time + Diet, data = data)
+
+# Print the summary of the model
+
+summary(model)
+
+residuals <- residuals(model)
+
+# Print the residuals
+
+residuals
