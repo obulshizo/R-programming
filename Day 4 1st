@@ -1,0 +1,117 @@
+
+data <- c(90, 50, 70, 80, 70, 60, 20, 30, 80, 90, 20)
+
+mean(data)
+
+median(data)
+
+mode <- function(x) {
+
+  uniqx <- unique(x)
+
+  uniqx[which.max(tabulate(match(x, uniqx)))]
+
+}
+
+mode(data)
+
+
+kelvin_to_celsius <- function(temp_k) {
+
+  temp_c <- temp_k - 273.15
+
+  return(temp_c)
+
+}
+
+n = as.integer(readline(prompt="enter the kelvin "))
+
+kelvin_to_celsius(n)
+values <- c(90, 50, 70, 80, 70, 60, 20, 30, 80, 90, 20)
+
+second_highest <- sort(unique(values), decreasing = TRUE)[2]
+
+third_lowest <- sort(unique(values))[3]
+
+
+
+print(paste("Second highest value:", second_highest))
+
+print(paste("Third lowest value:", third_lowest))
+
+
+#3
+
+library(reshape)
+
+t=airquality
+
+#i)
+
+summary(t)
+
+#ii)
+
+melt(t)
+
+#iii)
+
+t1=melt(t,id.vars=c("Month","Day"))
+
+print(head(t1))
+
+#4
+
+library(dplyr)
+
+#i)
+
+u <-airquality
+
+missing_values <- colSums(is.na(u))
+
+for (i in 1:ncol(u)) {
+
+  if (missing_values[i]/nrow(u) < 0.1) {
+
+    u <- u[!is.na(u[,i]),]
+
+  } else {
+
+    mean_val <- mean(u[,i], na.rm = TRUE)
+
+    u[is.na(u[,i]),i] <- mean_val
+
+  }
+
+}
+
+print(u)
+
+#ii)
+
+x=u[,"Ozone"] 
+
+y=u[,"Solar.R"] 
+
+m1<- lm(x~y)
+
+m1 
+
+#iii)
+
+plot(x, y, main = "Air Quality",xlab = "Ozone", ylab = "Solar")
+
+abline(lm(x~y,u1=u),col="blue")
+#iv)
+
+t2=cast(t1, Month + Day ~ variable)
+
+t2
+
+#v)
+
+t2=cast(t1,Month~Day,mean)
+
+t2
+
